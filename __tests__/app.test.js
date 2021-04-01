@@ -1,7 +1,8 @@
 const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
-const fakeRequest = require('supertest');
+const request = require('supertest');
 const app = require('../lib/app');
+const Fact = require('../lib/models/Fact');
 // const cors = require('../lib/app');
 
 describe('express-crud-be routes', () => {
@@ -9,40 +10,44 @@ describe('express-crud-be routes', () => {
     return setup(pool);
   });
 
-  it('returns all facts', async () => {
-    const expectation = [
-      // {
-      //   id: 1,
-      //   content: 'Nougat is delicious',
-      //   validity: true,
-      //   contributor_id: 1,
-      // },
-      // {
-      //   id: 2,
-      //   content:
-      //     'Nougat is made from sugar or honey and roasted nuts or egg whites',
-      //   validity: true,
-      //   contributor_id: 1,
-      // },
-      // {
-      //   id: 3,
-      //   content: 'Nougat roughly translates to Latin for nut-bread',
-      //   validity: true,
-      //   contributor_id: 1,
-      // },
-      {
-        content: 'hello',
-        contributor_id: 1,
-        id: 3,
-        validity: true,
-      },
-    ];
+  beforeEach(async () => {
+    await Fact.insert({ content: 'nougat is good', validity: true });
+    await Fact.insert({ content: 'nougat is bad', validity: false });
+  });
 
-    const data = await fakeRequest(app)
-      .get('/facts')
-      .expect('Content-Type', /json/)
-      .expect(200);
-    console.log('what');
-    expect(data.body).toEqual(expectation);
+  // it('creates a new fact and sends an email', () => {
+  //   return request(app)
+  //     .post('/api/v1/facts')
+  //     .send({ quantity: 10 })
+  //     .then((res) => {
+  //       expect(res.body).toEqual({ '': '' });
+  //     });
+  // });
+
+  it('gets all facts in the database', () => {
+    return request(app)
+      .get('/api/v1/facts')
+      .then((res) => {
+        expect(res.body).toEqual([
+          {
+            id: 3,
+            content: 'hello',
+            validity: true,
+            contributor_id: 1,
+          },
+          {
+            id: 5,
+            content: 'nougat is good',
+            validity: true,
+            contributor_id: 1,
+          },
+          {
+            id: 6,
+            content: 'nougat is bad',
+            validity: false,
+            contributor_id: 1,
+          },
+        ]);
+      });
   });
 });
