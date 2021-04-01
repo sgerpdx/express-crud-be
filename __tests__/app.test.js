@@ -63,4 +63,17 @@ describe('express-crud-be routes', () => {
         );
       });
   });
+
+  it('gets a fact by id', () => {
+    return request(app)
+      .get('/api/v1/facts/2')
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: 2,
+          content: 'nougat is bad',
+          validity: false,
+          contributorId: 1,
+        });
+      });
+  });
 });
