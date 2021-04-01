@@ -76,4 +76,13 @@ describe('express-crud-be routes', () => {
         });
       });
   });
+
+  it('deletes a fact by id', () => {
+    return request(app)
+      .delete(`/api/v1/facts/${fact.id}`)
+      .then((res) => {
+        console.log(res.body);
+        expect(res.body).toEqual(fact);
+      });
+  });
 });
