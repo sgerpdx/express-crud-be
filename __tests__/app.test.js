@@ -10,8 +10,9 @@ describe('express-crud-be routes', () => {
     return setup(pool);
   });
 
+  let fact;
   beforeEach(async () => {
-    await Fact.insert({
+    fact = await Fact.insert({
       content: 'nougat is good',
       validity: true,
       contributorId: 1,
