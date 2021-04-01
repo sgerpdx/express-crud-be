@@ -81,7 +81,11 @@ describe('express-crud-be routes', () => {
   it('updates an existing fact by id', () => {
     return request(app)
       .put('/api/v1/facts/2')
-      .send({ validity: true })
+      .send({
+        content: 'nougat is bad',
+        validity: true,
+        contributorId: 1,
+      })
       .then((res) => {
         expect(res.body).toEqual({
           id: 2,
