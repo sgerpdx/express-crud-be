@@ -11,43 +11,56 @@ describe('express-crud-be routes', () => {
   });
 
   beforeEach(async () => {
-    await Fact.insert({ content: 'nougat is good', validity: true });
-    await Fact.insert({ content: 'nougat is bad', validity: false });
+    await Fact.insert({
+      content: 'nougat is good',
+      validity: true,
+      contributorId: 1,
+    });
+    await Fact.insert({
+      content: 'nougat is bad',
+      validity: false,
+      contributorId: 1,
+    });
   });
 
-  // it('creates a new fact and sends an email', () => {
-  //   return request(app)
-  //     .post('/api/v1/facts')
-  //     .send({ quantity: 10 })
-  //     .then((res) => {
-  //       expect(res.body).toEqual({ '': '' });
-  //     });
-  // });
+  it('creates a new fact', () => {
+    return request(app)
+      .post('/api/v1/facts')
+      .send({
+        content: 'NASA invented nougat',
+        validity: false,
+        contributorId: 1,
+      })
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: 3,
+          content: 'NASA invented nougat',
+          validity: false,
+          contributorId: 1,
+        });
+      });
+  });
 
   it('gets all facts in the database', () => {
     return request(app)
       .get('/api/v1/facts')
       .then((res) => {
-        expect(res.body).toEqual([
-          {
-            id: 3,
-            content: 'hello',
-            validity: true,
-            contributor_id: 1,
-          },
-          {
-            id: 5,
-            content: 'nougat is good',
-            validity: true,
-            contributor_id: 1,
-          },
-          {
-            id: 6,
-            content: 'nougat is bad',
-            validity: false,
-            contributor_id: 1,
-          },
-        ]);
+        expect(res.body).toEqual(
+          expect.arrayContaining([
+            {
+              id: 1,
+              content: 'nougat is good',
+              validity: true,
+              contributorId: 1,
+            },
+            {
+              id: 2,
+              content: 'nougat is bad',
+              validity: false,
+              contributorId: 1,
+            },
+          ])
+        );
       });
   });
 });
