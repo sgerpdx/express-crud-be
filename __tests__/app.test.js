@@ -78,6 +78,20 @@ describe('express-crud-be routes', () => {
       });
   });
 
+  it('updates an existing fact by id', () => {
+    return request(app)
+      .put('/api/v1/facts/2')
+      .send({ validity: true })
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: 2,
+          content: 'nougat is bad',
+          validity: true,
+          contributorId: 1,
+        });
+      });
+  });
+
   it('deletes a fact by id', () => {
     return request(app)
       .delete(`/api/v1/facts/${fact.id}`)
