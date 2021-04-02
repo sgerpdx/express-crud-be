@@ -5,14 +5,7 @@ const app = require('../lib/app');
 const Fact = require('../lib/models/Fact');
 // const cors = require('../lib/app');
 
-// jest.mock('aws-sdk', () => () => ({
-//   messages: {
-//     create: jest.fn(),
-//   },
-// }));
-
 //per Patrick
-
 jest.mock('aws-sdk/clients/ses', () => {
   const mSES = {
     sendEmail: jest.fn().mockReturnThis(),
@@ -95,7 +88,7 @@ describe('express-crud-be routes', () => {
       });
   });
 
-  it('updates an existing fact by id', () => {
+  it('updates an existing fact by id and sends an email', () => {
     return request(app)
       .put('/api/v1/facts/2')
       .send({
