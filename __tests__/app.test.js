@@ -5,11 +5,22 @@ const app = require('../lib/app');
 const Fact = require('../lib/models/Fact');
 // const cors = require('../lib/app');
 
-jest.mock('ses', () => () => ({
-  messages: {
-    create: jest.fn(),
-  },
-}));
+// jest.mock('aws-sdk', () => () => ({
+//   messages: {
+//     create: jest.fn(),
+//   },
+// }));
+
+//per Patrick
+
+jest.mock('aws-sdk/clients/ses', () => {
+  const mSES = {
+    sendEmail: jest.fn().mockReturnThis(),
+    promise: jest.fn(),
+    // then: ()=>{}
+  };
+  return jest.fn(() => mSES);
+});
 
 describe('express-crud-be routes', () => {
   beforeEach(() => {
@@ -30,7 +41,7 @@ describe('express-crud-be routes', () => {
     });
   });
 
-  it('creates a new fact', () => {
+  it('creates a new fact and sends an email', () => {
     return request(app)
       .post('/api/v1/facts')
       .send({

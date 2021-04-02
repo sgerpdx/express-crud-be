@@ -19,3 +19,12 @@
 4. develop POST /facts endpoint to pass test
 5. repeat steps 3-4 for rest of endpoints
 6. move on to Amazon SES
+
+### Code Notes
+
+```
+sendEmail(params = {}, callback) ⇒ AWS.Request
+```
+```
+var ses = new AWS.SES({apiVersion: '2010-12-01'});
+```
