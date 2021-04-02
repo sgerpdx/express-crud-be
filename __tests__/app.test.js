@@ -5,6 +5,12 @@ const app = require('../lib/app');
 const Fact = require('../lib/models/Fact');
 // const cors = require('../lib/app');
 
+jest.mock('ses', () => () => ({
+  messages: {
+    create: jest.fn(),
+  },
+}));
+
 describe('express-crud-be routes', () => {
   beforeEach(() => {
     return setup(pool);
