@@ -9,6 +9,13 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Monoton&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./nougat/nougat.css" />
     <title>Entre Nougat</title>
   </head>
@@ -18,11 +25,14 @@
     <main>
       <p>Do you know any interesting nougat-based facts? Please share:</p>
       <form id="fact-share">
-        <input type="text" />
-        <button>Submit</button>
+        <input type="text" class="fact-input" />
+        <button class="fact-submit">Submit</button>
       </form>
       <div id="ghost-text"></div>
-      <ul id="facts"></ul>
+      <div class="list-wrapper">
+        Blah blah blah space
+        <ul id="facts"></ul>
+      </div>
     </main>
     <script type="module" src="./nougat/nougat.js"></script>
   </body>

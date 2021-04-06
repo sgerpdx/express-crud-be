@@ -1,7 +1,7 @@
 const form = document.getElementById('fact-share');
 const ul = document.getElementById('facts');
 
-form.addEventListener('Submit', (e) => {
+form.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const fd = new FormData(form);
@@ -13,14 +13,14 @@ form.addEventListener('Submit', (e) => {
     },
     body: fd.get(),
   }).then((res) => console.log(res));
+});
 
-  fetch('/api/v1/facts', {
-    method: 'GET',
-  }).then((facts) => {
-    facts.forEach((fact) => {
-      const li = document.createElement('li');
-      li.textContent = fact;
-      ul.appendChild(li);
-    });
+fetch('/api/v1/facts', {
+  method: 'GET',
+}).then((facts) => {
+  facts.forEach((fact) => {
+    const li = document.createElement('li');
+    li.textContent = fact;
+    ul.appendChild(li);
   });
 });

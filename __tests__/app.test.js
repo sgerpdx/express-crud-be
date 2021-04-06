@@ -88,42 +88,6 @@ describe('express-crud-be routes', () => {
       });
   });
 
-  it('gets an html file', () => {
-    return request(app)
-      .get(`${__dirname}/../public`)
-      .then((res) => {
-        expect(res.body).toEqual(<!DOCTYPE html>
-          <html lang="en">
-            <head>
-              <meta charset="UTF-8" />
-              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-              <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-              <link rel="preconnect" href="https://fonts.gstatic.com" />
-              <link
-                href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap"
-                rel="stylesheet"
-              />
-              <link rel="stylesheet" href="./nougat/nougat.css" />
-              <title>Entre Nougat</title>
-            </head>
-          
-            <body>
-              <header><h2>The Many Truths of Nougat</h2></header>
-              <main>
-                <p>Do you know any interesting nougat-based facts? Please share:</p>
-                <form id="fact-share">
-                  <input type="text" />
-                  <button>Submit</button>
-                </form>
-                <div id="ghost-text"></div>
-                <ul id="facts"></ul>
-              </main>
-              <script type="module" src="./nougat/nougat.js"></script>
-            </body>
-          </html>);
-      });
-  });
-
   it('updates an existing fact by id and sends an email', () => {
     return request(app)
       .put('/api/v1/facts/2')

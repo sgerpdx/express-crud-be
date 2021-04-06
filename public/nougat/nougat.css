@@ -4,3 +4,23 @@ body {
   flex-direction: column;
   color: navy;
 }
+
+h2 {
+  font-family: 'Homemade Apple', cursive;
+}
+
+.fact-input {
+  border: solid 1px goldenrod;
+  border-radius: 5px;
+}
+
+.fact-submit {
+  background-color: goldenrod;
+  color: white;
+  border: solid 1px goldenrod;
+  border-radius: 5px;
+}
+
+.list-wrapper {
+  background-color: white;
+}
